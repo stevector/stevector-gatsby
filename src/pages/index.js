@@ -37,35 +37,44 @@ const IndexPage = data => (
 export default IndexPage
 
 export const query = graphql`
-  query MyQuery {
-    __typename
-    drupaldata {
-      nodeQuery(
-        limit: 100
-        filter: {
-          conditions: [
-            { field: "status", value: ["1"] }
-            { field: "type", value: ["blog_post"] }
-            { operator: GREATER_THAN, field: "changed", value: ["1"] }
-          ]
+query MyQuery {
+  __typename
+  drupaldata {
+    nodeQuery(limit: 100, filter: {conditions: [{field: "status", value: ["1"]}, {field: "type", value: ["blog_post"]}]}, sort: {field: "nid", direction: ASC}) {
+      entities {
+        entityLabel
+        entityType
+        entityBundle
+        entityId
+        entityUrl {
+          routed
+          path
+          ... on Drupal_EntityCanonicalUrl {
+            pathInternal
+            pathAlias
+          }
         }
-        sort: { field: "nid", direction: ASC }
-      ) {
-        entities {
-          entityLabel
-          entityType
-          entityBundle
-          entityId
-          entityUrl {
-            routed
-            path
-            ... on Drupal_EntityCanonicalUrl {
-              pathInternal
-              pathAlias
-            }
+        ... on Drupal_NodeBlogPost {
+          nid
+          uuid
+          fieldDatePublished {
+            date
+          }
+          fieldLink {
+            uri
+          }
+          fieldTextPullQuotes {
+            processed
+          }
+          path {
+            alias
+            pid
+            langcode
           }
         }
       }
     }
   }
+}
+
 `
