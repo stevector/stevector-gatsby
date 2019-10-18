@@ -1,4 +1,4 @@
-const btoa = require("btoa");
+const btoa = require("btoa")
 
 module.exports = {
   siteMetadata: {
