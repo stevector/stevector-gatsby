@@ -15,50 +15,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-
-
-
-
-
-
-
-
-
-/*
-    {
- 
-      nodeQuery(limit: 10, 
-      
-      
-      
-      filter: {
-                      conditions: [
-                        { field: "status", value: ["1"] }
-                        { field: "type", value: ["presentation"] }
-                        {
-                          operator: GREATER_THAN
-                          field: "changed"
-                          value: [1]
-                        }
-                      ]
-                    }
-      
-      
-      
-      ) {
-            entities {
-              entityLabel
-              entityChanged(format: "Y-m-d")
-              entityType
-              entityBundle
-            }
-          }
-        }
-      
-*/
-
-
-
     {
       // Documentation: https://www.gatsbyjs.org/packages/gatsby-source-graphql/
       resolve: "gatsby-source-graphql",

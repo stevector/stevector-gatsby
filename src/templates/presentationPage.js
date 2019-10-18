@@ -20,11 +20,11 @@ export const query = graphql`
 query MyQueryz($entityId: String!) {
   __typename
   drupaldata {
-    nodeQuery(limit: 10, filter: {conditions: [{field: "nid", value: [$entityId]}, {field: "type", value: ["presentation"]}, {operator: GREATER_THAN, field: "changed", value: ["1"]}]}, sort: {field: "nid", direction: ASC}) {
+    nodeQuery(filter: {conditions: [{field: "nid", value: [$entityId]}]}
+    ) {
       
             entities {
               entityLabel
-              entityChanged(format: "Y-m-d")
               entityType
               entityBundle
               entityId

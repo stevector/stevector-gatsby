@@ -18,12 +18,9 @@ exports.createPages = async ({ graphql, actions }) => {
     const drupalNodes = await graphql(`query MyQuery {
     __typename
     drupaldata {
-      nodeQuery(limit: 10, filter: {conditions: [{field: "status", value: ["1"]}, {field: "type", value: ["presentation"]}, {operator: GREATER_THAN, field: "changed", value: ["1"]}]}, sort: {field: "nid", direction: ASC}) {
+      nodeQuery(limit: 100, filter: {conditions: [{field: "status", value: ["1"]}, {field: "type", value: ["presentation"]}, {operator: GREATER_THAN, field: "changed", value: ["1"]}]}, sort: {field: "nid", direction: ASC}) {
         
               entities {
-                entityLabel
-                entityChanged(format: "Y-m-d")
-                entityType
                 entityBundle
                 entityId
                 entityUrl {
@@ -37,7 +34,6 @@ exports.createPages = async ({ graphql, actions }) => {
               }
             }
           }
-  
   }
   `);   
 
@@ -52,8 +48,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
     console.log(JSON.stringify(entity));
 
-
-
     const path = entity.entityUrl.path
    // const path = "/node/" + entity.entityId
     const entityId = entity.entityId
@@ -67,15 +61,6 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
 
-
-
-
 })
 
-
-
-
-// }
-
-// drupalNoders();
 }
