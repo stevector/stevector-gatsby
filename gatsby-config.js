@@ -1,3 +1,5 @@
+const btoa = require("btoa");
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
