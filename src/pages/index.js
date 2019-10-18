@@ -23,7 +23,7 @@ const EntityHolder = ({ entities }) => (
 const IndexPage = data => (
   <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
+    <h1>Blog Posts</h1>
     <EntityHolder entities={data.data.drupaldata.nodeQuery} />
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>
@@ -45,7 +45,7 @@ export const query = graphql`
         filter: {
           conditions: [
             { field: "status", value: ["1"] }
-            { field: "type", value: ["presentation"] }
+            { field: "type", value: ["blog_post"] }
             { operator: GREATER_THAN, field: "changed", value: ["1"] }
           ]
         }

@@ -4,19 +4,24 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const PresentationPage = data => (
+const BlogPostPage = data => (
   <Layout>
     <SEO title="{data.data.drupaldata.nodeQuery.entities[0].entityLabel}" />
     <h1>{data.data.drupaldata.nodeQuery.entities[0].entityLabel} </h1>
-    <p>Welcome to the page</p>
+
+    <div
+      dangerouslySetInnerHTML={{
+        __html: data.data.drupaldata.nodeQuery.entities[0].body.processed,
+      }}
+    />
     <Link to="/">Go back to the homepage</Link>
   </Layout>
 )
 
-export default PresentationPage
+export default BlogPostPage
 
 export const query = graphql`
-  query getSinglePresentation($entityId: String!) {
+  query getSingleBlogPost($entityId: String!) {
     __typename
     drupaldata {
       nodeQuery(
@@ -24,7 +29,6 @@ export const query = graphql`
       ) {
         entities {
           entityLabel
-          entityType
           entityBundle
           entityId
           entityUrl {
@@ -33,6 +37,13 @@ export const query = graphql`
             ... on Drupal_EntityCanonicalUrl {
               pathInternal
               pathAlias
+            }
+          }
+          ... on Drupal_NodeBlogPost {
+            nid
+            uuid
+            body {
+              processed
             }
           }
         }

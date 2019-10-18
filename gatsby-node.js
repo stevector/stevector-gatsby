@@ -17,13 +17,7 @@ exports.createPages = async ({ graphql, actions }) => {
       drupaldata {
         nodeQuery(
           limit: 100
-          filter: {
-            conditions: [
-              { field: "status", value: ["1"] }
-              { field: "type", value: ["presentation"] }
-              { operator: GREATER_THAN, field: "changed", value: ["1"] }
-            ]
-          }
+          filter: { conditions: [{ field: "status", value: ["1"] }] }
           sort: { field: "nid", direction: ASC }
         ) {
           entities {
@@ -49,6 +43,11 @@ exports.createPages = async ({ graphql, actions }) => {
     `src/templates/presentationPage.js`
   )
 
+  const nodeBundlesToTemplates = {
+    presentation: path.resolve(`src/templates/presentationPage.js`),
+    blog_post: path.resolve(`src/templates/blogPostPage.js`),
+  }
+
   drupalNodes.data.drupaldata.nodeQuery.entities.map(entity => {
     //drupalNodes.data.drupaldata.nodeQuery.entities.forEach(({ entity }) => {
 
@@ -59,7 +58,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const entityId = entity.entityId
     createPage({
       path,
-      component: presentationPostTemplate,
+      component: nodeBundlesToTemplates[entity.entityBundle],
       // In your blog post template's graphql query, you can use path
       // as a GraphQL variable to query for data from the markdown file.
       context: {
