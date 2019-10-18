@@ -15,6 +15,67 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+
+
+
+
+
+
+
+
+
+/*
+    {
+ 
+      nodeQuery(limit: 10, 
+      
+      
+      
+      filter: {
+                      conditions: [
+                        { field: "status", value: ["1"] }
+                        { field: "type", value: ["presentation"] }
+                        {
+                          operator: GREATER_THAN
+                          field: "changed"
+                          value: [1]
+                        }
+                      ]
+                    }
+      
+      
+      
+      ) {
+            entities {
+              entityLabel
+              entityChanged(format: "Y-m-d")
+              entityType
+              entityBundle
+            }
+          }
+        }
+      
+*/
+
+
+
+    {
+      // Documentation: https://www.gatsbyjs.org/packages/gatsby-source-graphql/
+      resolve: "gatsby-source-graphql",
+      options: {
+        // The names of all types in the remote schema will be prefixed with this word.
+        typeName: `Drupal`,
+        // The entire remote schema is available under this field.
+        fieldName: `drupaldata`,
+        // Endpoint URL.
+        //url: `http://127.0.0.1:8888/graphql`,
+        url: `https://pr-23-stevector-drupal.pantheonsite.io/graphql`,
+        headers: {
+
+        }
+      }
+    },
+
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
