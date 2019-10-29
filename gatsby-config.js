@@ -27,9 +27,9 @@ module.exports = {
         //url: `http://127.0.0.1:8888/graphql`,
         url: `https://pr-23-stevector-drupal.pantheonsite.io/graphql`,
         headers: {
-
-        }
-      }
+          Authorization: `Basic ${btoa(process.env.GATSBY_DRUPAL_USER + ":" + process.env.GATSBY_DRUPAL_PASSWORD)}`,
+        },
+      },
     },
 
     `gatsby-transformer-sharp`,
