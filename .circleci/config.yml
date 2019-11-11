@@ -11,6 +11,23 @@ workflows:
           post-steps:
             - run: cd "public" && find .
 
+
+      - pantheon/push:
+          checkout: false
+          pre-steps:
+            - attach_workspace:
+                at: /tmp
+            - run: mv /tmp/public/* .
+            - run: find .
+          post-steps:
+            - run: cd "/tmp/pantheon_repo" && git status
+            - run: echo "Testing CI on master branch"
+          requires:
+            - playground/npmbuild_and_persist
+
+
+# @todo, make a disposable user for the pantheon token.
+
 orbs:
   # fauxalgore is a joke username where I publish experimental
   # code. https://github.com/fauxalgore/orbs This repo is a playground
