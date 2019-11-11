@@ -9,18 +9,13 @@ const BlogPostPage = data => (
     <SEO title="{data.data.drupaldata.nodeQuery.entities[0].entityLabel}" />
     <h1>{data.data.drupaldata.nodeQuery.entities[0].entityLabel} </h1>
 
-
-{data.data.drupaldata.nodeQuery.entities[0].body ?
-
-  <div
-  dangerouslySetInnerHTML={{
-    __html: data.data.drupaldata.nodeQuery.entities[0].body.processed,
-  }}
-/>
-
- : null}
-
-
+    {data.data.drupaldata.nodeQuery.entities[0].body ? (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: data.data.drupaldata.nodeQuery.entities[0].body.processed,
+        }}
+      />
+    ) : null}
 
     <Link to="/">Go back to the homepage</Link>
   </Layout>
