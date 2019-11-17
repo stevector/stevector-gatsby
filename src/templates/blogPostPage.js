@@ -1,12 +1,13 @@
 import React from "react"
 import { Link } from "gatsby"
 
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const BlogPostPage = data => (
   <Layout>
-    <SEO title="{data.data.drupaldata.nodeQuery.entities[0].entityLabel}" />
+    <SEO title={data.data.drupaldata.nodeQuery.entities[0].entityLabel} />
     <h1>{data.data.drupaldata.nodeQuery.entities[0].entityLabel} </h1>
 
     {data.data.drupaldata.nodeQuery.entities[0].body ? (
