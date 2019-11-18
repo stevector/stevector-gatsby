@@ -7,8 +7,28 @@ import SEO from "../components/seo"
 
 const SingleEntity = ({ entity }) => (
   <div>
-    {entity.entityId} - {entity.entityLabel} - {entity.entityUrl.path}{" "}
-    <Link to={entity.entityUrl.path}>{entity.entityLabel}</Link>{" "}
+    <h3>
+    {entity.fieldLink ? (
+<a href={entity.fieldLink.uri}>{entity.entityLabel}</a>
+    ) : (
+      <Link to={entity.entityUrl.path}>{entity.entityLabel}</Link>
+      )
+    }
+    </h3>
+    <span>Published on {entity.fieldDatePublished.value}</span>
+
+    {entity.fieldTextPullQuotes && entity.fieldTextPullQuotes[0] ? (
+
+<div
+dangerouslySetInnerHTML={{
+  __html: entity.fieldTextPullQuotes[0].processed,
+}}
+/>
+
+    ) : null
+    }
+
+    <br/><br/><br/><br/><br/>
   </div>
 )
 
@@ -67,7 +87,8 @@ export const query = graphql`
             nid
             uuid
             fieldDatePublished {
-              date
+              date,
+              value
             }
             fieldLink {
               uri

@@ -24,7 +24,6 @@ workflows:
           requires:
             - playground/npmbuild_and_persist
 
-
 # @todo, make a disposable user for the pantheon token.
 
 orbs:
