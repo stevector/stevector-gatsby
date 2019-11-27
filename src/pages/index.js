@@ -2,7 +2,6 @@ import React from "react"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
 const SingleEntity = ({ entity }) => (
@@ -14,7 +13,7 @@ const SingleEntity = ({ entity }) => (
         <Link to={entity.entityUrl.path}>{entity.entityLabel}</Link>
       )}
     </h3>
-    <span>Published on {entity.fieldDatePublished.value}</span>
+    <span class="text-gray-500">Published on {entity.fieldDatePublished.value}</span>
 
     {entity.fieldTextPullQuotes && entity.fieldTextPullQuotes[0] ? (
       <div
@@ -35,7 +34,14 @@ const SingleEntity = ({ entity }) => (
 const EntityHolder = ({ entities }) => (
   <div>
     {entities.entities.map((entity, i) => (
-      <SingleEntity entity={entity} />
+
+      entity.fieldLink ? (
+        // For parity with existing blog, don't print external blog posts.
+        null      
+) : (
+        <SingleEntity entity={entity} />
+      )
+
     ))}
   </div>
 )
@@ -45,12 +51,6 @@ const IndexPage = data => (
     <SEO title="Home" />
     <h1>Blog Posts</h1>
     <EntityHolder entities={data.data.drupaldata.nodeQuery} />
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great. Possibly using CircleCI</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
   </Layout>
 )
 
