@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const SingleEntity = ({ entity }) => (
-  <div>
+  <div class="blog-teaser">
     <h3>
       {entity.fieldLink ? (
         <a href={entity.fieldLink.uri}>{entity.entityLabel}</a>
@@ -13,7 +13,7 @@ const SingleEntity = ({ entity }) => (
         <Link to={entity.entityUrl.path}>{entity.entityLabel}</Link>
       )}
     </h3>
-    <span class="text-gray-500">Published on {entity.fieldDatePublished.value}</span>
+    <span class="text-gray-800 content-type-label">Blog Post:</span> <span class="text-gray-800">Published on {entity.fieldDatePublished.value}</span>
 
     {entity.fieldTextPullQuotes && entity.fieldTextPullQuotes[0] ? (
       <div
@@ -22,12 +22,14 @@ const SingleEntity = ({ entity }) => (
         }}
       />
     ) : null}
+<p class="read-more">
+{entity.fieldLink ? (
+        <a href={entity.fieldLink.uri}>Read blog post</a>
+      ) : (
+        <Link to={entity.entityUrl.path}>Read blog post</Link>
+      )}
+</p>
 
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
   </div>
 )
 
