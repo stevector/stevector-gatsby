@@ -18,6 +18,8 @@ workflows:
                 at: /tmp
             - run: mv /tmp/public/* .
             - run: find .
+            - run: git clone --bare $CIRCLE_REPOSITORY_URL ".git"
+            - run: git status
           post-steps:
             - run: cd "/tmp/pantheon_repo" && git status
             - run: echo "Testing CI on master branch"
