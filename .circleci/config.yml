@@ -12,14 +12,12 @@ workflows:
             - run: cd "public" && find .
 
       - pantheon/push:
-          checkout: false
+          checkout: true
+          directory_to_push: "public"
           pre-steps:
             - attach_workspace:
-                at: /tmp
-            - run: mv /tmp/public/* .
+                at: .
             - run: find .
-            - run: git clone --bare $CIRCLE_REPOSITORY_URL ".git"
-            - run: git status
           post-steps:
             - run: cd "/tmp/pantheon_repo" && git status
             - run: echo "Testing CI on master branch"
@@ -33,7 +31,7 @@ orbs:
   # code. https://github.com/fauxalgore/orbs This repo is a playground
   # for Orbs that might become stable elsewhere.
   playground: fauxalgore/playground@0.0.2
-  pantheon: pantheon-systems/pantheon@0.1.0
+  pantheon: pantheon-systems/pantheon@dev:directory_to_push
   # https://circleci.com/orbs/registry/orb/circleci/slack
   slack: circleci/slack@2.5.1
   
