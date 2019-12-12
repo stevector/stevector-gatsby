@@ -12,9 +12,10 @@ workflows:
             - run: cd "public" && find .
 
       - pantheon/push:
-          checkout: true
+          checkout: false
           directory_to_push: "public"
           pre-steps:
+            - checkout
             - attach_workspace:
                 at: .
             - run: find .
