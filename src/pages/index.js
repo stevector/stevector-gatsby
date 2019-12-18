@@ -1,58 +1,54 @@
 import React from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import BlogTeaser from "../components/blogTeaser"
 
-const SingleEntity = ({ entity }) => (
-  <div class="blog-teaser">
-    <h3>
-      {entity.fieldLink ? (
-        <a href={entity.fieldLink.uri}>{entity.entityLabel}</a>
-      ) : (
-        <Link to={entity.entityUrl.path}>{entity.entityLabel}</Link>
-      )}
-    </h3>
-    <span class="text-gray-800 content-type-label">Blog Post:</span> <span class="text-gray-800">Published on {entity.fieldDatePublished.value}</span>
+const datePublished_sortFunction = function(a, b) {  
+  var dateA = new Date(a.fieldDatePublished.value).getTime(); 
+  var dateB = new Date(b.fieldDatePublished.value).getTime(); 
 
-    {entity.fieldTextPullQuotes && entity.fieldTextPullQuotes[0] ? (
-      <div
-        dangerouslySetInnerHTML={{
-          __html: entity.fieldTextPullQuotes[0].processed,
-        }}
-      />
-    ) : null}
-<p class="read-more">
-{entity.fieldLink ? (
-        <a href={entity.fieldLink.uri}>Read blog post</a>
-      ) : (
-        <Link to={entity.entityUrl.path}>Read blog post</Link>
-      )}
-</p>
+  console.log(b.fieldDatePublished.value);
+  return dateA < dateB ? 1 : -1;  
+};  
 
-  </div>
-)
+const sortEntities = function(entities) {
+  entities.sort(datePublished_sortFunction);
+  return entities;
+}
 
 const EntityHolder = ({ entities }) => (
+  //entities.
   <div>
-    {entities.entities.map((entity, i) => (
+    
+
+    {
+    entities.map((entity, i) => (
 
       entity.fieldLink ? (
         // For parity with existing blog, don't print external blog posts.
         null      
 ) : (
-        <SingleEntity entity={entity} />
+        <BlogTeaser entity={entity} />
       )
 
     ))}
   </div>
 )
 
+const EntitySorter = ({ entities }) => (
+  //entities.
+  
+  <EntityHolder entities={sortEntities(entities)} />
+
+
+)
+
 const IndexPage = data => (
   <Layout>
     <SEO title="Home" />
     <h1>Blog Posts</h1>
-    <EntityHolder entities={data.data.drupaldata.nodeQuery} />
+    <EntitySorter entities={data.data.drupaldata.nodeQuery.entities} />
   </Layout>
 )
 
