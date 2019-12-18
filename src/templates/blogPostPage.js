@@ -17,7 +17,6 @@ const BlogPostPage = data => (
       />
     ) : null}
 
-    <Link to="/">Go back to the homepage</Link>
   </Layout>
 )
 

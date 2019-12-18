@@ -39,7 +39,7 @@ display: block;
 
     blockquote::before,
     blockquote::after {
-        color: rebeccapurple;
+        color: #007bff;
         font-size: 6em;
         line-height: 0.1em;
         vertical-align: -0.6em;  
