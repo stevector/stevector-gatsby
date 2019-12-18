@@ -22,8 +22,7 @@ const BlogTeaserList = ({ entities }) => (
   <div>
     <h1>Blog Posts</h1>
     {entities.map((entity, i) =>
-      entity.fieldLink ? // For parity with existing blog, don't print external blog posts.
-      null : (
+      entity.fieldLink ? null : ( // For parity with existing blog, don't print external blog posts.
         <BlogTeaser entity={entity} />
       )
     )}
