@@ -17,9 +17,10 @@ const sortEntities = function(entities) {
   return entities
 }
 
-const EntityHolder = ({ entities }) => (
+const BlogTeaserList = ({ entities }) => (
   //entities.
   <div>
+    <h1>Blog Posts</h1>
     {entities.map((entity, i) =>
       entity.fieldLink ? // For parity with existing blog, don't print external blog posts.
       null : (
@@ -29,17 +30,10 @@ const EntityHolder = ({ entities }) => (
   </div>
 )
 
-const EntitySorter = ({ entities }) => (
-  //entities.
-
-  <EntityHolder entities={sortEntities(entities)} />
-)
-
 const IndexPage = data => (
   <Layout>
     <SEO title="Home" />
-    <h1>Blog Posts</h1>
-    <EntitySorter entities={data.data.drupaldata.nodeQuery.entities} />
+    <BlogTeaserList entities={sortEntities(entities)} />
   </Layout>
 )
 
