@@ -31,7 +31,9 @@ const BlogTeaserList = ({ entities }) => (
 const IndexPage = data => (
   <Layout>
     <SEO title="Home" />
-    <BlogTeaserList entities={sortEntities(data.data.drupaldata.nodeQuery.entities)} />
+    <BlogTeaserList
+      entities={sortEntities(data.data.drupaldata.nodeQuery.entities)}
+    />
   </Layout>
 )
 
