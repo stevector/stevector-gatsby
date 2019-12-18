@@ -1,5 +1,4 @@
 import React from "react"
-
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import BlogTeaser from "../components/blogTeaser"
@@ -32,7 +31,7 @@ const BlogTeaserList = ({ entities }) => (
 const IndexPage = data => (
   <Layout>
     <SEO title="Home" />
-    <BlogTeaserList entities={sortEntities(entities)} />
+    <BlogTeaserList entities={sortEntities(data.data.drupaldata.nodeQuery.entities)} />
   </Layout>
 )
 
