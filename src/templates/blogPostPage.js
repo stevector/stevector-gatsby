@@ -15,7 +15,6 @@ const BlogPostPage = data => (
         }}
       />
     ) : null}
-
   </Layout>
 )
 

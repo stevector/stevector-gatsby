@@ -4,44 +4,35 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import BlogTeaser from "../components/blogTeaser"
 
-const datePublished_sortFunction = function(a, b) {  
-  var dateA = new Date(a.fieldDatePublished.value).getTime(); 
-  var dateB = new Date(b.fieldDatePublished.value).getTime(); 
+const datePublished_sortFunction = function(a, b) {
+  var dateA = new Date(a.fieldDatePublished.value).getTime()
+  var dateB = new Date(b.fieldDatePublished.value).getTime()
 
-  console.log(b.fieldDatePublished.value);
-  return dateA < dateB ? 1 : -1;  
-};  
+  console.log(b.fieldDatePublished.value)
+  return dateA < dateB ? 1 : -1
+}
 
 const sortEntities = function(entities) {
-  entities.sort(datePublished_sortFunction);
-  return entities;
+  entities.sort(datePublished_sortFunction)
+  return entities
 }
 
 const EntityHolder = ({ entities }) => (
   //entities.
   <div>
-    
-
-    {
-    entities.map((entity, i) => (
-
-      entity.fieldLink ? (
-        // For parity with existing blog, don't print external blog posts.
-        null      
-) : (
+    {entities.map((entity, i) =>
+      entity.fieldLink ? // For parity with existing blog, don't print external blog posts.
+      null : (
         <BlogTeaser entity={entity} />
       )
-
-    ))}
+    )}
   </div>
 )
 
 const EntitySorter = ({ entities }) => (
   //entities.
-  
+
   <EntityHolder entities={sortEntities(entities)} />
-
-
 )
 
 const IndexPage = data => (
