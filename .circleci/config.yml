@@ -15,7 +15,7 @@ workflows:
 
       - pantheon/push:
           checkout: false
-          directory_to_push: "public/"
+          directory_to_push: "public"
           pre-steps:
             - checkout
             - attach_workspace:
@@ -33,7 +33,7 @@ orbs:
   # code. https://github.com/fauxalgore/orbs This repo is a playground
   # for Orbs that might become stable elsewhere.
   playground: fauxalgore/playground@0.0.2
-  pantheon: pantheon-systems/pantheon@dev:master
+  pantheon: pantheon-systems/pantheon@dev:subdir-bug-fix
   # https://circleci.com/orbs/registry/orb/circleci/slack
   slack: circleci/slack@2.5.1
   
