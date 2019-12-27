@@ -1,3 +1,2 @@
 api_version: 1
-
-enforce_https: transitional
+enforce_https: "transitional"
