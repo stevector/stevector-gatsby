@@ -26,7 +26,6 @@ workflows:
             - playground/npmbuild_and_persist
 
 # @todo, make a disposable user for the pantheon token.
-
 orbs:
   # fauxalgore is a joke username where I publish experimental
   # code. https://github.com/fauxalgore/orbs This repo is a playground
