@@ -15,7 +15,7 @@ workflows:
 
       - pantheon/push:
           checkout: false
-          directory_to_push: "public"
+          directory_to_push: "public/"
           pre-steps:
             - checkout
             - attach_workspace:
