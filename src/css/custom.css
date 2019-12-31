@@ -23,14 +23,6 @@ body blockquote > * {
   display: block;
 }
 
-/*
-            blockquote > p:first-child {
-
-                display: inline;
-            
-            }
-*/
-
 blockquote::before,
 blockquote::after {
   color: #007bff;
@@ -50,4 +42,24 @@ blockquote::after {
   margin-right: 0.1em;
   content: "”";
   flex: 0 1 auto;
+}
+
+a {
+  text-decoration: underline;
+  color: #007bff;
+  text-decoration-style: solid;
+  
+}
+
+a:hover {
+  text-decoration-style: dotted;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  color: black;
 }
