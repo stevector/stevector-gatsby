@@ -31,7 +31,7 @@ workflows:
           message: "hey, could you look at https://dev-${TERMINUS_SITE}.pantheonsite.io/ and sign off on a deployment to Test real quick?"
           mentions: "UJQVBGN9G"
           requires:
-          - playground/backstop
+          - pantheon/push
           filters:
             branches:
               only: "master"
