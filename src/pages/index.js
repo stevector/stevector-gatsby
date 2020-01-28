@@ -20,11 +20,9 @@ const BlogTeaserList = ({ entities }) => (
   //entities.
   <div>
     <h1>Blog Posts</h1>
-    {entities.map((entity, i) =>
-      
-        <BlogTeaser entity={entity} />
-      
-    )}
+    {entities.map((entity, i) => (
+      <BlogTeaser entity={entity} />
+    ))}
   </div>
 )
 
