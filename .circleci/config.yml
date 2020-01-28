@@ -27,6 +27,56 @@ workflows:
           requires:
             - playground/npmbuild_and_persist
 
+      - slack/approval-notification:
+          message: "hey, could you look at https://dev-${TERMINUS_SITE}.pantheonsite.io/ and sign off on a deployment to Test real quick?"
+          mentions: "UJQVBGN9G"
+          requires:
+          - pantheon/push
+          filters:
+            branches:
+              only: "master"
+          pre-steps:
+            # Warm the cache in the environment.
+            - run: curl https://dev-${TERMINUS_SITE}.pantheonsite.io/
+      - approve_dev_env:
+          type: approval
+          requires:
+          - pantheon/push
+          filters:
+            branches:
+              only: "master"
+      - deploy_to_test:
+          requires:
+          - approve_dev_env
+          filters:
+            branches:
+              only: "master"
+      - slack/approval-notification:
+          message: "hey, could you look at https://test-${TERMINUS_SITE}.pantheonsite.io/ and sign off on a deployment to Live real quick?"
+          mentions: "UJQVBGN9G"
+          requires:
+          - deploy_to_test
+          filters:
+            branches:
+              only: "master"
+          pre-steps:
+            # Warm the cache in the environment.
+            - run: curl https://test-${TERMINUS_SITE}.pantheonsite.io/
+      - approve_test_env:
+          type: approval
+          requires:
+          - deploy_to_test
+          filters:
+            branches:
+              only: "master"
+      - deploy_to_live:
+          requires:
+          - approve_test_env
+          filters:
+            branches:
+              only: "master"
+
+
 # @todo, make a disposable user for the pantheon token.
 orbs:
   # fauxalgore is a joke username where I publish experimental
@@ -37,3 +87,35 @@ orbs:
   # https://circleci.com/orbs/registry/orb/circleci/slack
   slack: circleci/slack@2.5.1
   
+
+jobs:
+  backup_test_env:
+    docker:
+    - image: quay.io/pantheon-public/build-tools-ci:5.x
+    steps:
+    - run:
+        name: Authenticate with Pantheon's CLI using a machine token
+        command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+    - run: terminus backup:create $TERMINUS_SITE.test
+  deploy_to_test:
+    docker:
+    - image: quay.io/pantheon-public/build-tools-ci:5.x
+    steps:
+    - run:
+        name: Authenticate with Pantheon's CLI using a machine token
+        command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+    - run: echo "I should update the --note field to account for commit messages"
+    - run: terminus env:deploy $TERMINUS_SITE.test --note="automatic deployment from CI" --cc
+    # This cache clear shouldn't be necessary but run it just to be safe.
+    - run: terminus env:clear-cache $TERMINUS_SITE.test
+  deploy_to_live:
+    docker:
+    - image: quay.io/pantheon-public/build-tools-ci:5.x
+    steps:
+    - run:
+        name: Authenticate with Pantheon's CLI using a machine token
+        command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+    - run: echo "I should update the --note field to account for commit messages"
+    - run: terminus env:deploy $TERMINUS_SITE.live --note="automatic deployment from CI"  --sync-content --cc
+    # This cache clear shouldn't be necessary but run it just to be safe.
+    - run: terminus env:clear-cache $TERMINUS_SITE.live
