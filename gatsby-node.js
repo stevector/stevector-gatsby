@@ -17,7 +17,12 @@ exports.createPages = async ({ graphql, actions }) => {
       drupaldata {
         nodeQuery(
           limit: 100
-          filter: { conditions: [{ field: "status", value: ["1"] }] }
+          filter: {
+            conditions: [
+              { field: "field_link.uri", operator: IS_NULL }
+              { field: "status", value: ["1"] }
+            ]
+          }
           sort: { field: "nid", direction: ASC }
         ) {
           entities {

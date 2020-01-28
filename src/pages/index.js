@@ -20,11 +20,9 @@ const BlogTeaserList = ({ entities }) => (
   //entities.
   <div>
     <h1>Blog Posts</h1>
-    {entities.map((entity, i) =>
-      entity.fieldLink ? null : ( // For parity with existing blog, don't print external blog posts.
-        <BlogTeaser entity={entity} />
-      )
-    )}
+    {entities.map((entity, i) => (
+      <BlogTeaser entity={entity} />
+    ))}
   </div>
 )
 
@@ -49,6 +47,7 @@ export const query = graphql`
           conditions: [
             { field: "status", value: ["1"] }
             { field: "type", value: ["blog_post"] }
+            { field: "field_link.uri", operator: IS_NULL }
           ]
         }
         sort: { field: "nid", direction: ASC }
