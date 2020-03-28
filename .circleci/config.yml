@@ -31,7 +31,7 @@ jobs:
         key: yarn-cache{{ checksum "yarn.lock" }}
         paths:
           - ./node_modules
-    - run: npm run build
+    - run: GATSBY_CPU_COUNT=2 CI=true yarn build
     - run:
         name: Deploy to GCP 
         command: 
