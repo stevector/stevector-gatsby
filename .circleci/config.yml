@@ -36,7 +36,5 @@ jobs:
     - run:
         name: setmeta
         command:
-           gsutil -m setmeta -h "Content-Type:text/html" \
-           -h "Cache-Control:public, s-maxage=15, stale-while-revalidate=300" \
-           -h "Content-Disposition" gs://${GCP_BUCKET}/stevector-gatsby2/live/*
+           gsutil -m setmeta -h "Cache-Control:public, s-maxage=15, stale-while-revalidate=300" -h "Content-Disposition" gs://${GCP_BUCKET}/stevector-gatsby2/live/*
 
