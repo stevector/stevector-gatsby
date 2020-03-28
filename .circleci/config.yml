@@ -29,8 +29,8 @@ jobs:
         command: yarn install
     - save_cache:
         key: yarn-cache{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
+        paths:
+          - ./node_modules
     - run: npm run build
     - run:
         name: Deploy to GCP 
