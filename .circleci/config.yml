@@ -10,6 +10,7 @@ jobs:
     docker:
       - image: node:10.15.3
     steps:
+    - checkout
     - run: npm ci
     - run: npm build
   
