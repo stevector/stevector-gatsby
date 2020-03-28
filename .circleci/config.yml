@@ -3,7 +3,6 @@ workflows:
   version: 2
   build_push_test:
     jobs:
-      # Eventually this job should come from a CircleCI maintained orb.
       - build_and_deploy    
 orbs:
   gcp-cli: circleci/gcp-cli@1.0.0      
