@@ -9,10 +9,10 @@ orbs:
 jobs:
   build_and_deploy:
     docker:
-      - image: node:10.15.3
+      - image: google/cloud-sdk
     steps:
     - checkout
-    - gcp-cli/install
+    #- gcp-cli/install
 
     - run: 
         name: GCP auth
