@@ -4,8 +4,7 @@ workflows:
   build_push_test:
     jobs:
       # Eventually this job should come from a CircleCI maintained orb.
-      - build_and_deploy
-      
+      - build_and_deploy    
 orbs:
   gcp-cli: circleci/gcp-cli@1.0.0      
 jobs:
@@ -35,14 +34,10 @@ jobs:
          paths:
            - ./node_modules
     - run: npm run build
-    - run: ls -al
-    - run: cd public && ls -al
-
     - run:
         name: Deploy to GCP 
         command: 
             gsutil -m rsync -r -c -d ./public gs://${GCP_BUCKET}/stevector-gatsby2/live
-
     - run:
         name: setmeta
         command:
