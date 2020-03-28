@@ -23,7 +23,17 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
 
+    - restore_cache:
+        keys:
+          # Find a cache corresponding to this specific package-lock.json
+          - v1-npm-deps-{{ checksum "package-lock.json" }}
+          # Fallback cache to be used
+          - v1-npm-deps-
     - run: npm ci
+    - save_cache:
+         key: v1-npm-deps-{{ checksum "package-lock.json" }}
+         paths:
+           - ./node_modules
     - run: npm run build
     - run: ls -al
     - run: cd public && ls -al
