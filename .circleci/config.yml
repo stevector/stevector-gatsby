@@ -25,14 +25,15 @@ jobs:
     - restore_cache:
         keys:
           # Find a cache corresponding to this specific package-lock.json
-          - v1-npm-deps-{{ checksum "package-lock.json" }}
+          - v2-npm-deps-{{ checksum "package-lock.json" }}
           # Fallback cache to be used
-          - v1-npm-deps-
+          - v2-npm-deps-
     - run: npm ci
     - save_cache:
-         key: v1-npm-deps-{{ checksum "package-lock.json" }}
+         key: v2-npm-deps--{{ checksum "package-lock.json" }}
          paths:
-           - ./node_modules
+           #- ./node_modules
+           - $HOME/.npm
     - run: npm run build
     - run:
         name: Deploy to GCP 
