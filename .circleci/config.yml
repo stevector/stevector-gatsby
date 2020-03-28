@@ -21,14 +21,14 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
 
-      - restore_cache:
-          keys:
-            - yarn-cache{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install
-      - save_cache:
-          key: yarn-cache{{ checksum "yarn.lock" }}
+    - restore_cache:
+        keys:
+          - yarn-cache{{ checksum "yarn.lock" }}
+    - run:
+        name: Install Dependencies
+        command: yarn install
+    - save_cache:
+        key: yarn-cache{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
     - run: npm run build
