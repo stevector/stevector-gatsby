@@ -5,22 +5,29 @@ workflows:
     jobs:
       # Eventually this job should come from a CircleCI maintained orb.
       - build_and_deploy
+      
+orbs:
+  gcp-cli: circleci/gcp-cli@1.0.0      
 jobs:
   build_and_deploy:
     docker:
       - image: node:10.15.3
     steps:
     - checkout
-    - run: npm ci
-    - run: npm run build
-    - run: ls -al
-    - run: cd public && ls -al
+    - gcp-cli/install
+
     - run: 
         name: GCP auth
         command: |
             echo $GCP_SA | gcloud auth activate-service-account --key-file=-
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+
+    - run: npm ci
+    - run: npm run build
+    - run: ls -al
+    - run: cd public && ls -al
+
     - run:
         name: Deploy to GCP 
         command: 
