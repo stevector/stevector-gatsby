@@ -26,7 +26,7 @@ jobs:
           - yarn-cache{{ checksum "yarn.lock" }}
     - run:
         name: Install Dependencies
-        command: yarn install
+        command: yarn install  --frozen-lockfile
     - run: git status
     - run: cat yarn.lock
     - save_cache:
@@ -42,5 +42,3 @@ jobs:
         name: setmeta
         command:
            gsutil -m setmeta -h "Cache-Control:public, s-maxage=15, stale-while-revalidate=300" -h "Content-Disposition" gs://${GCP_BUCKET}/stevector-gatsby2/live/*
-    - store_artifacts:
-        path: .
