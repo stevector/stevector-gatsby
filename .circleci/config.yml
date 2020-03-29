@@ -18,7 +18,7 @@ jobs:
           command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
       - run:
           name: make multidev
-          command: terminus multidev:create stevector-gatsby2.dev $TERMINUS_ENV
+          command: terminus env:list stevector-gatsby2 --field=id | grep $TERMINUS_ENV || terminus multidev:create stevector-gatsby2.dev $TERMINUS_ENV
 
 
   build_and_deploy:
