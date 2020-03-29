@@ -5,7 +5,10 @@ workflows:
     jobs:
       - build_and_deploy
       # @todo, don't run on master branch
-      - make_multidev
+      - make_multidev:
+        filters:
+          branches:
+          ignore: "master"
 orbs:
   gcp-cli: circleci/gcp-cli@1.0.0      
 jobs:
