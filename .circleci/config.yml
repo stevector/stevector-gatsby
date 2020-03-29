@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Set TERMINUS_ENV
           command: |
-            set -ex
+
             echo $CIRCLE_BRANCH
             echo $CI_PULL_REQUEST
             
