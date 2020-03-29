@@ -16,7 +16,11 @@ jobs:
       - run:
           name: Set TERMINUS_ENV
           command: |
-            if [ -z "$CI_PULL_REQUEST" &&  "master" -eq "$CIRCLE_BRANCH"  ]
+            set -ex
+            echo $CIRCLE_BRANCH
+            echo $CI_PULL_REQUEST
+            
+            if [ -z "$CI_PULL_REQUEST" && "master" -eq "$CIRCLE_BRANCH"  ]
             then
                   echo "export TERMINUS_ENV='live'" >> $BASH_ENV
             else
