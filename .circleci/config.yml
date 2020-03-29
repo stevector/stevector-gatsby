@@ -3,119 +3,69 @@ workflows:
   version: 2
   build_push_test:
     jobs:
-      # Eventually this job should come from a CircleCI maintained orb.
-      - playground/npmbuild_and_persist:
-          package_lock_location: .
-          path_to_persist: "public"
-          build_command: "npm run build"
-          post-steps:
-            - run: cd "public" && find .
-            - store_artifacts:
-                path: public
-
-      - pantheon/push:
-          checkout: false
-          directory_to_push: "public"
-          pre-steps:
-            - checkout
-            - attach_workspace:
-                at: .
-            - run: find .
-          post-steps:
-            - run: cd "/tmp/pantheon_repo" && git status
-            - run: echo "Testing CI on master branch"
-          requires:
-            - playground/npmbuild_and_persist
-
-      - slack/approval-notification:
-          message: "hey, could you look at https://dev-${TERMINUS_SITE}.pantheonsite.io/ and sign off on a deployment to Test real quick?"
-          mentions: "UJQVBGN9G"
-          requires:
-          - pantheon/push
-          filters:
-            branches:
-              only: "master"
-          pre-steps:
-            # Warm the cache in the environment.
-            - run: curl https://dev-${TERMINUS_SITE}.pantheonsite.io/
-      - approve_dev_env:
-          type: approval
-          requires:
-          - pantheon/push
-          filters:
-            branches:
-              only: "master"
-      - deploy_to_test:
-          requires:
-          - approve_dev_env
-          filters:
-            branches:
-              only: "master"
-      - slack/approval-notification:
-          message: "hey, could you look at https://test-${TERMINUS_SITE}.pantheonsite.io/ and sign off on a deployment to Live real quick?"
-          mentions: "UJQVBGN9G"
-          requires:
-          - deploy_to_test
-          filters:
-            branches:
-              only: "master"
-          pre-steps:
-            # Warm the cache in the environment.
-            - run: curl https://test-${TERMINUS_SITE}.pantheonsite.io/
-      - approve_test_env:
-          type: approval
-          requires:
-          - deploy_to_test
-          filters:
-            branches:
-              only: "master"
-      - deploy_to_live:
-          requires:
-          - approve_test_env
-          filters:
-            branches:
-              only: "master"
-
-
-# @todo, make a disposable user for the pantheon token.
+      - build_and_deploy
+      # @todo, don't run on master branch
+      - make_multidev:
+        filters:
+          branches:
+          ignore: "master"
 orbs:
-  # fauxalgore is a joke username where I publish experimental
-  # code. https://github.com/fauxalgore/orbs This repo is a playground
-  # for Orbs that might become stable elsewhere.
-  playground: fauxalgore/playground@0.0.2
-  pantheon: pantheon-systems/pantheon@0.2.0
-  # https://circleci.com/orbs/registry/orb/circleci/slack
-  slack: circleci/slack@2.5.1
-  
-
+  gcp-cli: circleci/gcp-cli@1.0.0      
 jobs:
-  backup_test_env:
+  make_multidev:
     docker:
-    - image: quay.io/pantheon-public/build-tools-ci:5.x
+      - image: quay.io/pantheon-public/build-tools-ci:6.x
     steps:
-    - run:
-        name: Authenticate with Pantheon's CLI using a machine token
-        command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
-    - run: terminus backup:create $TERMINUS_SITE.test
-  deploy_to_test:
+      - run: /build-tools-ci/scripts/set-environment
+      - run:
+          name: Authenticate with Pantheon's CLI using a machine token
+          command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+      - run:
+          name: make multidev
+          command: terminus env:list stevector-gatsby2 --field=id | grep $TERMINUS_ENV || terminus multidev:create stevector-gatsby2.dev $TERMINUS_ENV
+
+
+  build_and_deploy:
     docker:
-    - image: quay.io/pantheon-public/build-tools-ci:5.x
+      - image: octahedroid/docker-static-build-tools
     steps:
+    - checkout
     - run:
-        name: Authenticate with Pantheon's CLI using a machine token
-        command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
-    - run: echo "I should update the --note field to account for commit messages"
-    - run: terminus env:deploy $TERMINUS_SITE.test --note="automatic deployment from CI" --cc
-    # This cache clear shouldn't be necessary but run it just to be safe.
-    - run: terminus env:clear-cache $TERMINUS_SITE.test
-  deploy_to_live:
-    docker:
-    - image: quay.io/pantheon-public/build-tools-ci:5.x
-    steps:
+        name: Set TERMINUS_ENV
+        command: |
+          if [ -z "$CI_PULL_REQUEST" ]
+          then
+                echo "export TERMINUS_ENV='live'" >> $BASH_ENV
+          else
+                echo "export TERMINUS_ENV='pr-${CI_PULL_REQUEST##*/}'" >> $BASH_ENV
+          fi
+
+    - run: echo $TERMINUS_ENV
+    - run: 
+        name: GCP auth
+        command: |
+            echo $GCP_SA | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+
+    - restore_cache:
+        keys:
+          - yarn-cache{{ checksum "yarn.lock" }}
     - run:
-        name: Authenticate with Pantheon's CLI using a machine token
-        command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
-    - run: echo "I should update the --note field to account for commit messages"
-    - run: terminus env:deploy $TERMINUS_SITE.live --note="automatic deployment from CI"  --sync-content --cc
-    # This cache clear shouldn't be necessary but run it just to be safe.
-    - run: terminus env:clear-cache $TERMINUS_SITE.live
+        name: Install Dependencies
+        command: yarn install  --frozen-lockfile
+    - run: git status
+    - run: cat yarn.lock
+    - save_cache:
+        key: yarn-cache{{ checksum "yarn.lock" }}
+        paths:
+          - ./node_modules
+    - run: GATSBY_CPU_COUNT=2 CI=true yarn build
+    - run:
+        name: Deploy to GCP 
+        command: 
+            gsutil -m rsync -r -c -d ./public gs://${GCP_BUCKET}/stevector-gatsby2/${TERMINUS_ENV}
+    - run:
+        name: setmeta
+        command:
+           gsutil -m setmeta -r -h "Cache-Control:public, s-maxage=15, stale-while-revalidate=300" -h "Content-Disposition" gs://${GCP_BUCKET}/stevector-gatsby2/${TERMINUS_ENV}/*
