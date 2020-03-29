@@ -27,7 +27,8 @@ jobs:
     steps:
     - checkout
     #- gcp-cli/install
-
+    - run: echo "export TERMINUS_ENV='pr-${CI_PULL_REQUEST}'" >> $BASH_ENV
+    - run: echo $TERMINUS_ENV
     - run: 
         name: GCP auth
         command: |
@@ -55,4 +56,4 @@ jobs:
     - run:
         name: setmeta
         command:
-           gsutil -m setmeta -h "Cache-Control:public, s-maxage=15, stale-while-revalidate=300" -h "Content-Disposition" gs://${GCP_BUCKET}/stevector-gatsby2/live/*
+           gsutil -m setmeta -r -h "Cache-Control:public, s-maxage=15, stale-while-revalidate=300" -h "Content-Disposition" gs://${GCP_BUCKET}/stevector-gatsby2/live/*
