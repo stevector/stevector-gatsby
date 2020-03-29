@@ -7,13 +7,25 @@ workflows:
 orbs:
   gcp-cli: circleci/gcp-cli@1.0.0      
 jobs:
+  make_multidev:
+    docker:
+      - image: quay.io/pantheon-public/build-tools-ci:6.x
+    steps:
+      - run:
+          name: Authenticate with Pantheon's CLI using a machine token
+          command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+      - run:
+          name: make multidev
+          command: terminus multidev:create stevector-gatsby2.dev $TERMINUS_ENV
+
+
   build_and_deploy:
     docker:
       - image: octahedroid/docker-static-build-tools
     steps:
     - checkout
     #- gcp-cli/install
-    - run: terminus
+
     - run: 
         name: GCP auth
         command: |
