@@ -3,8 +3,8 @@ workflows:
   version: 2
   build_deploy_test:
     jobs:
-      - pantheon_frontend/gatsby_build_and_deploy
-      - pantheon_frontend/make_multidev:
+      - pfe/gatsby_build_and_deploy
+      - pfe/make_multidev:
           filters:
             branches:
               ignore: "master"
@@ -12,5 +12,5 @@ orbs:
   # fauxalgore is a joke username where I publish experimental
   # code. https://github.com/fauxalgore/orbs This repo is a playground
   # for Orbs that might become stable elsewhere.
-  pantheon_frontend: fauxalgore/playground@dev:pantheon_frontend
+  pfe: fauxalgore/playground@dev:pantheon_frontend
 
