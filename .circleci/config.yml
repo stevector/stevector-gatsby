@@ -13,7 +13,7 @@ jobs:
     steps:
     - checkout
     #- gcp-cli/install
-
+    - run: terminus
     - run: 
         name: GCP auth
         command: |
