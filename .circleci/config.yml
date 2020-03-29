@@ -8,7 +8,7 @@ workflows:
       - make_multidev:
           filters:
             branches:
-            ignore: "master"
+              ignore: "master"
 orbs:
   gcp-cli: circleci/gcp-cli@1.0.0      
 jobs:
