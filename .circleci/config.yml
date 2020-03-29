@@ -1,7 +1,7 @@
 version: 2.1
 workflows:
   version: 2
-  build_push_test:
+  build_deploy_test:
     jobs:
       - build_and_deploy
       # @todo, don't run on master branch
@@ -9,8 +9,6 @@ workflows:
           filters:
             branches:
               ignore: "master"
-orbs:
-  gcp-cli: circleci/gcp-cli@1.0.0      
 jobs:
   make_multidev:
     docker:
