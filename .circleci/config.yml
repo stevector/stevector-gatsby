@@ -4,7 +4,7 @@ workflows:
   build_deploy_test:
     jobs:
       - build_and_deploy
-      - make_multidev:
+      - pantheon_frontend/make_multidev:
           filters:
             branches:
               ignore: "master"
@@ -15,19 +15,6 @@ orbs:
   pantheon_frontend: fauxalgore/playground@dev:pantheon_frontend
 
 jobs:
-  make_multidev:
-    docker:
-      - image: quay.io/pantheon-public/build-tools-ci:6.x
-    steps:
-      - pantheon_frontend/set_terminus_env
-      - run:
-          name: Authenticate with Pantheon's CLI using a machine token
-          command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
-      - run:
-          # This step is needed while we're reliant on the current platform for
-          # domains. It should be removed once we have a custom Fastly instance.
-          name: Make a Multidev environment.
-          command: terminus env:list ${TERMINUS_SITE} --field=id | grep $TERMINUS_ENV || terminus multidev:create ${TERMINUS_SITE}.live $TERMINUS_ENV
   build_and_deploy:
     docker:
       - image: octahedroid/docker-static-build-tools
