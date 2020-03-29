@@ -26,8 +26,16 @@ jobs:
       - image: octahedroid/docker-static-build-tools
     steps:
     - checkout
-    #- gcp-cli/install
-    - run: echo "export TERMINUS_ENV='pr-${CI_PULL_REQUEST##*/}'" >> $BASH_ENV
+    - run:
+        name: Set TERMINUS_ENV
+        command: |
+          if [ -z "$CI_PULL_REQUEST" ]
+          then
+                echo "export TERMINUS_ENV='live'" >> $BASH_ENV
+          else
+                echo "export TERMINUS_ENV='pr-${CI_PULL_REQUEST##*/}'" >> $BASH_ENV
+          fi
+
     - run: echo $TERMINUS_ENV
     - run: 
         name: GCP auth
