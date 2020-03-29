@@ -4,7 +4,6 @@ workflows:
   build_deploy_test:
     jobs:
       - build_and_deploy
-      # @todo, don't run on master branch
       - make_multidev:
           filters:
             branches:
@@ -42,7 +41,7 @@ jobs:
     - run:
         name: Set TERMINUS_ENV
         command: |
-          if [ -z "$CI_PULL_REQUEST" &&  "master" -eq "#CIRCLE_BRANCH"  ]
+          if [ -z "$CI_PULL_REQUEST" && "master" -eq "#CIRCLE_BRANCH"  ]
           then
                 echo "export TERMINUS_ENV='live'" >> $BASH_ENV
           else
