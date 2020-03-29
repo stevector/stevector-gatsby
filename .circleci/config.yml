@@ -8,23 +8,19 @@ workflows:
           filters:
             branches:
               ignore: "master"
+
+orbs:
+  # fauxalgore is a joke username where I publish experimental
+  # code. https://github.com/fauxalgore/orbs This repo is a playground
+  # for Orbs that might become stable elsewhere.
+  pantheon_frontend: fauxalgore/playground@dev-pantheon_frontend
+
 jobs:
   make_multidev:
     docker:
       - image: quay.io/pantheon-public/build-tools-ci:6.x
     steps:
-      - run:
-          name: Set TERMINUS_ENV
-          command: |
-            if [ -z "$CI_PULL_REQUEST" &&  "master" -eq "#CIRCLE_BRANCH"  ]
-            then
-                  echo "export TERMINUS_ENV='live'" >> $BASH_ENV
-            else
-                  echo "export TERMINUS_ENV='pr-${CI_PULL_REQUEST##*/}'" >> $BASH_ENV
-            fi
-        # using this instead of /build-tools-ci/scripts/set-environment
-        # so as to set only needed variables. Also, in this flow,
-        # master corresponds to the live environment.
+      - pantheon_frontend/set_terminus_env
       - run:
           name: Authenticate with Pantheon's CLI using a machine token
           command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
