@@ -12,6 +12,7 @@ jobs:
     docker:
       - image: quay.io/pantheon-public/build-tools-ci:6.x
     steps:
+      - run: /build-tools-ci/scripts/set-environment
       - run:
           name: Authenticate with Pantheon's CLI using a machine token
           command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
