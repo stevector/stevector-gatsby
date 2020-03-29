@@ -27,7 +27,7 @@ jobs:
     steps:
     - checkout
     #- gcp-cli/install
-    - run: echo "export TERMINUS_ENV='pr-${CI_PULL_REQUEST}'" >> $BASH_ENV
+    - run: echo "export TERMINUS_ENV='pr-${CI_PULL_REQUEST##*/}'" >> $BASH_ENV
     - run: echo $TERMINUS_ENV
     - run: 
         name: GCP auth
