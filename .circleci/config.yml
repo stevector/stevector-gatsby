@@ -9,7 +9,4 @@ workflows:
             branches:
               ignore: "master"
 orbs:
-  # fauxalgore is a joke username where I publish experimental
-  # code. https://github.com/fauxalgore/orbs This repo is a playground
-  # for Orbs that might become stable elsewhere.
-  pfe: stevector/pantheon-frontend@dev:master
+  pfe: stevector/pantheon-frontend@dev:0.0.1
