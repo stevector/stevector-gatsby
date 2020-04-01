@@ -3,6 +3,21 @@ workflows:
   version: 2
   build_deploy_test:
     jobs:
+     #### These jobs depend on the following variables being set globally
+     #### In CircleCI configuration.
+     # TERMINUS_SITE (The machine name of the Gatsby Site on Pantheon. Not the source WordPress or Drupal site.)
+     # TERMINUS_TOKEN (https://pantheon.io/docs/machine-tokens, allows for the creation of Multidev Environments)
+     # GCP_SA (The GCP security token that allows for syncing to the GCP Object storage bucket)
+     #### GCP variables that will likely move to Orb parameters:
+     # GCP_BUCKET (set to static.pantheonfrontend.website)
+     # GCP_COMPUTE_ZONE (set to us-central1)
+     # GOOGLE_PROJECT_ID (set to webops-prototypes)
+     #### This repo (stevector/stevector-gatsby) also has project-specific variables for Drupal authentication.
+     # GATSBY_DRUPAL_PASSWORD
+     # GATSBY_DRUPAL_USER
+     #### Unused variables
+     # SLACK_WEBHOOK (This repo previous sent Slack notifications. That functionality might be brought back)
+
       - pfe/gatsby_build_and_deploy:
          post-steps:
             - run:
@@ -13,8 +28,7 @@ workflows:
           filters:
             branches:
               ignore: "master"
+
 orbs:
-  # fauxalgore is a joke username where I publish experimental
-  # code. https://github.com/fauxalgore/orbs This repo is a playground
-  # for Orbs that might become stable elsewhere.
-  pfe: fauxalgore/playground@dev:pantheon_frontend
+  pfe: stevector/pantheon-frontend@0.0.2
+  # pfe: stevector/pantheon-frontend@dev:header-in-sync
