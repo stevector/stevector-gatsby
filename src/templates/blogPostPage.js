@@ -9,6 +9,7 @@ const BlogPostPage = data => (
     <h1>{data.data.drupaldata.nodeQuery.entities[0].entityLabel} </h1>
 
   
+  
     {data.data.drupaldata.nodeQuery.entities[0].body ? (
       <div
         dangerouslySetInnerHTML={{
