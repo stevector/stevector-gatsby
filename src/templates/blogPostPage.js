@@ -7,7 +7,10 @@ const BlogPostPage = data => (
   <Layout>
     <SEO title={data.data.drupaldata.nodeQuery.entities[0].entityLabel} />
     <h1>{data.data.drupaldata.nodeQuery.entities[0].entityLabel} </h1>
-
+    <b>Blog Post:</b>{" "}
+    <span class="text-gray-800">
+      Published on {data.data.drupaldata.nodeQuery.entities[0].fieldDatePublished.value}<br/ ><br/ >
+    </span>
   
     {data.data.drupaldata.nodeQuery.entities[0].body ? (
       <div
@@ -41,6 +44,10 @@ export const query = graphql`
             }
           }
           ... on Drupal_NodeBlogPost {
+            fieldDatePublished {
+              date
+              value
+            }
             nid
             uuid
             body {
