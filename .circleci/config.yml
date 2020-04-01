@@ -8,10 +8,6 @@ workflows:
      # TERMINUS_SITE (The machine name of the Gatsby Site on Pantheon. Not the source WordPress or Drupal site.)
      # TERMINUS_TOKEN (https://pantheon.io/docs/machine-tokens, allows for the creation of Multidev Environments)
      # GCP_SA (The GCP security token that allows for syncing to the GCP Object storage bucket)
-     #### GCP variables that will likely move to Orb parameters:
-     # GCP_BUCKET (set to static.pantheonfrontend.website)
-     # GOOGLE_COMPUTE_ZONE (set to us-central1)
-     # GOOGLE_PROJECT_ID (set to webops-prototypes)
      #### This repo (stevector/stevector-gatsby) also has project-specific variables for Drupal authentication.
      # GATSBY_DRUPAL_PASSWORD
      # GATSBY_DRUPAL_USER
@@ -30,5 +26,5 @@ workflows:
               ignore: "master"
 
 orbs:
-  pfe: stevector/pantheon-frontend@0.0.2
-  # pfe: stevector/pantheon-frontend@dev:header-in-sync
+  # pfe: stevector/pantheon-frontend@0.0.2
+  pfe: stevector/pantheon-frontend@dev:orb-params
