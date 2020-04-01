@@ -11,9 +11,6 @@ workflows:
      #### This repo (stevector/stevector-gatsby) also has project-specific variables for Drupal authentication.
      # GATSBY_DRUPAL_PASSWORD
      # GATSBY_DRUPAL_USER
-     #### Unused variables
-     # SLACK_WEBHOOK (This repo previous sent Slack notifications. That functionality might be brought back)
-
       - pfe/gatsby_build_and_deploy:
          post-steps:
             - run:
