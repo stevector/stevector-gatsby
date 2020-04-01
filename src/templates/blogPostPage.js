@@ -11,8 +11,6 @@ const BlogPostPage = data => (
     <span class="text-gray-800">
       Published on {data.data.drupaldata.nodeQuery.entities[0].fieldDatePublished.value}<br/ ><br/ >
     </span>
-  
-  
     {data.data.drupaldata.nodeQuery.entities[0].body ? (
       <div
         dangerouslySetInnerHTML={{
