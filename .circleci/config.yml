@@ -10,7 +10,7 @@ workflows:
      # GCP_SA (The GCP security token that allows for syncing to the GCP Object storage bucket)
      #### GCP variables that will likely move to Orb parameters:
      # GCP_BUCKET (set to static.pantheonfrontend.website)
-     # GCP_COMPUTE_ZONE (set to us-central1)
+     # GOOGLE_COMPUTE_ZONE (set to us-central1)
      # GOOGLE_PROJECT_ID (set to webops-prototypes)
      #### This repo (stevector/stevector-gatsby) also has project-specific variables for Drupal authentication.
      # GATSBY_DRUPAL_PASSWORD
