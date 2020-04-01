@@ -8,7 +8,7 @@ const BlogPostPage = data => (
     <SEO title={data.data.drupaldata.nodeQuery.entities[0].entityLabel} />
     <h1>{data.data.drupaldata.nodeQuery.entities[0].entityLabel} </h1>
     <b>Blog Post:</b>{" "}
-    <span class="text-gray-800">
+    <span>
       Published on {data.data.drupaldata.nodeQuery.entities[0].fieldDatePublished.value}<br/ ><br/ >
     </span>
     {data.data.drupaldata.nodeQuery.entities[0].body ? (
