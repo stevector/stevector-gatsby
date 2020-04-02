@@ -3,8 +3,8 @@ const btoa = require("btoa")
 module.exports = {
   siteMetadata: {
     title: `Steve Persch`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    description: `Steve Persch's Blog`,
+    author: `@stevector`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
