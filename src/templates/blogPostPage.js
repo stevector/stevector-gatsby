@@ -5,7 +5,7 @@ import SEO from "../components/seo"
 
 const BlogPostPage = data => (
   <Layout>
-    <SEO title={data.data.drupaldata.nodeQuery.entities[0].entityLabel} />
+    <SEO title={data.data.drupaldata.nodeQuery.entities[0].entityLabel} description={data.data.drupaldata.nodeQuery.entities[0].fieldTextPullQuotes[0].processed.replace(/(<([^>]+)>)/ig,"")}  />
     <h1>{data.data.drupaldata.nodeQuery.entities[0].entityLabel} </h1>
     <b>Blog Post:</b>{" "}
     <span>
@@ -46,6 +46,9 @@ export const query = graphql`
             fieldDatePublished {
               date
               value
+            }
+            fieldTextPullQuotes {
+              processed
             }
             nid
             uuid
