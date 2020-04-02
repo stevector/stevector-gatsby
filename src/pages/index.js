@@ -28,7 +28,7 @@ const BlogTeaserList = ({ entities }) => (
 
 const IndexPage = data => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title="Steve Persch's Blog" />
     <BlogTeaserList
       entities={sortEntities(data.data.drupaldata.nodeQuery.entities)}
     />

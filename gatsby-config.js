@@ -2,8 +2,8 @@ const btoa = require("btoa")
 
 module.exports = {
   siteMetadata: {
-    title: `Steve Persch`,
-    description: `Steve Persch's Blog`,
+    title: `Steve Persch's Blog`,
+    description: `It's mostly just blog posts about Drupal`,
     author: `@stevector`,
   },
   plugins: [
