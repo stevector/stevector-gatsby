@@ -2,9 +2,9 @@ const btoa = require("btoa")
 
 module.exports = {
   siteMetadata: {
-    title: `Steve Persch`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Steve Persch's Blog`,
+    description: `It's mostly just blog posts about Drupal`,
+    author: `@stevector`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
