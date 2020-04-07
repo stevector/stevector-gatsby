@@ -8,8 +8,6 @@ const PresentationPage = data => (
   <Layout>
     <SEO title="{data.data.drupaldata.nodeQuery.entities[0].entityLabel}" />
     <h1>{data.data.drupaldata.nodeQuery.entities[0].entityLabel} </h1>
-    <p>Welcome to the page</p>
-    <Link to="/">Go back to the homepage</Link>
   </Layout>
 )
 
