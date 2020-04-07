@@ -20,8 +20,8 @@ const Footer = () => (
       }}
     >
       <h4 style={{ margin: 0 }}>
-        <Link
-          to="/"
+        <a
+          href="https://twitter.com/stevector"
           style={{
             color: `white`,
             textDecoration: `none`,
@@ -30,10 +30,8 @@ const Footer = () => (
                 <TwitterIcon        style={{
         display: `inline`,
         maxHeight: `40px`,
-        
-        
       }} />
-        </Link>
+        </a>
 
       </h4>
     </div>
