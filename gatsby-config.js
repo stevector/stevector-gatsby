@@ -23,6 +23,14 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /assets/
+        }
+      }
+    },
+    {
       // Documentation: https://www.gatsbyjs.org/packages/gatsby-source-graphql/
       resolve: "gatsby-source-graphql",
       options: {
