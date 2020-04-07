@@ -1,14 +1,13 @@
 import { Link } from "gatsby"
 import React from "react"
 
-
-import TwitterIcon from "./../../assets/Twitter_Logo_WhiteOnImage.svg"; 
+import TwitterIcon from "./../../assets/Twitter_Logo_WhiteOnImage.svg"
 
 const Footer = () => (
   <footer
     style={{
       // background: `#ff0000`,
-      background: `#007bff`
+      background: `#007bff`,
     }}
   >
     <div
@@ -26,17 +25,18 @@ const Footer = () => (
             color: `white`,
             textDecoration: `none`,
           }}
-        >@stevector
-                <TwitterIcon        style={{
-        display: `inline`,
-        maxHeight: `40px`,
-      }} />
+        >
+          @stevector
+          <TwitterIcon
+            style={{
+              display: `inline`,
+              maxHeight: `40px`,
+            }}
+          />
         </a>
-
       </h4>
     </div>
   </footer>
 )
-
 
 export default Footer

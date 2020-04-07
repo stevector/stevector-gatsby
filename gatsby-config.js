@@ -12,7 +12,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         // The property ID; the tracking code won't be generated without it
-        trackingId: " UA-42048647-1"
+        trackingId: " UA-42048647-1",
       },
     },
     {
@@ -23,12 +23,12 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-react-svg',
+      resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /assets/
-        }
-      }
+          include: /assets/,
+        },
+      },
     },
     {
       // Documentation: https://www.gatsbyjs.org/packages/gatsby-source-graphql/
