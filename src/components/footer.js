@@ -1,4 +1,3 @@
-import { Link } from "gatsby"
 import React from "react"
 
 import TwitterIcon from "./../../assets/Twitter_Logo_WhiteOnImage.svg"
