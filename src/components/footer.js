@@ -15,6 +15,7 @@ const Footer = () => (
         maxWidth: 800,
         padding: `1.45rem 1.0875rem`,
         textAlign: `left`,
+  
       }}
     >
       <h4 style={{ margin: 0 }}>
