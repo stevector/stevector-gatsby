@@ -6,21 +6,20 @@ workflows:
      #### These jobs depend on the following variables being set globally
      #### In CircleCI configuration.
      # TERMINUS_SITE (The machine name of the Gatsby Site on Pantheon. Not the source WordPress or Drupal site.)
-     # TERMINUS_TOKEN (https://pantheon.io/docs/machine-tokens, allows for the creation of Multidev Environments)
      # GCP_SA (The GCP security token that allows for syncing to the GCP Object storage bucket)
      #### This repo (stevector/stevector-gatsby) also has project-specific variables for Drupal authentication.
      # GATSBY_DRUPAL_PASSWORD
      # GATSBY_DRUPAL_USER
       - pfe/gatsby_build_and_deploy:
+         pre-steps:
+            - run:
+                name: Wake Up Drupal
+                command: curl https://live-stevector-drupal.pantheonsite.io
          post-steps:
             - run:
                 name: post deployment completion status
                 command: |
                  curl "https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/statuses/$CIRCLE_SHA1" -H "Authorization: token $GITHUB_TOKEN" -X POST -d '{"state": "success", "context": "pantheon/deployment", "description": "Deployment complete", "target_url": "https://'${TERMINUS_ENV}'--'${TERMINUS_SITE}'.my.pantheonfrontend.website/"}'
-      - pfe/make_multidev:
-          filters:
-            branches:
-              ignore: "master"
 
 orbs:
   pfe: stevector/pantheon-frontend@0.1.0
