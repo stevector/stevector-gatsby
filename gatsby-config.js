@@ -40,7 +40,7 @@ module.exports = {
         fieldName: `drupaldata`,
         // Endpoint URL.
         //url: `http://127.0.0.1:8888/graphql`,
-        url: `https://live-stevector-drupal.pantheonsite.io/graphql`,
+        url: `https://test-stevector-drupal.pantheonsite.io/graphql`,
         headers: {
           Authorization: `Basic ${btoa(
             process.env.GATSBY_DRUPAL_USER +
