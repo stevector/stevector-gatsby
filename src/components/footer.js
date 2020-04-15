@@ -1,7 +1,4 @@
 import React from "react"
-
-import TwitterIcon from "./../../assets/Twitter_Logo_WhiteOnImage.svg"
-
 const Footer = () => (
   <footer
     style={{
@@ -23,15 +20,14 @@ const Footer = () => (
           style={{
             color: `white`,
             textDecoration: `none`,
+            backgroundImage: `url("/Twitter.svg")`,
+            backgroundRepeat: `no-repeat`,
+            paddingLeft: `20px`,
+            backgroundPositionX: `left`,
+            backgroundSize: `auto`,
           }}
         >
           @stevector
-          <TwitterIcon
-            style={{
-              display: `inline`,
-              maxHeight: `40px`,
-            }}
-          />
         </a>
       </h4>
     </div>
