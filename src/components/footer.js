@@ -11,9 +11,10 @@ const Footer = () => (
         margin: `0 auto`,
         maxWidth: 800,
         padding: `1.45rem 1.0875rem`,
-        textAlign: `right`,
+        textAlign: `left`,
       }}
     >
+
       <h4 style={{ margin: 0 }}>
         <a
           href="https://twitter.com/stevector"
