@@ -17,7 +17,7 @@ workflows:
                 name: post deployment completion status
                 command: |
                  curl "https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/statuses/$CIRCLE_SHA1" -H "Authorization: token $GITHUB_TOKEN" -X POST -d '{"state": "success", "context": "pantheon/deployment", "description": "Deployment complete", "target_url": "https://'${TERMINUS_ENV}'-'${TERMINUS_SITE}'.pantheonsite.io/"}'
-      - pfe/make_multidev:
+      - pfe/make-multidev:
           filters:
             branches:
               ignore: "master"
