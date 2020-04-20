@@ -11,7 +11,7 @@ workflows:
      #### This repo (stevector/stevector-gatsby) also has project-specific variables for Drupal authentication.
      # GATSBY_DRUPAL_PASSWORD
      # GATSBY_DRUPAL_USER
-      - pfe/gatsby_build_and_deploy:
+      - pfe/gatsby-build-and-deploy:
          post-steps:
             - run:
                 name: post deployment completion status
@@ -23,5 +23,5 @@ workflows:
 #              ignore: "master"
 
 orbs:
-  pfe: stevector/pantheon-frontend@0.1.0
+  pfe: stevector/pantheon-frontend@dev:scaffold
   # pfe: stevector/pantheon-frontend@dev:orb-params
