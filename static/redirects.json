@@ -86,8 +86,11 @@
       "status": 301
     },
     {
-      "source": "/product/*",
+      "source": "/product/
+      
+      ",
       "destination": "https://shop.dev5290.wpcampus.org/*",
+      "prefix": TRUE,
       "status": 301
     },
     {
