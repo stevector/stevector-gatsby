@@ -15,6 +15,8 @@ workflows:
          pre-steps:
             - pfe/set-terminus-env 
             - slack/notify:
+                include_job_number_field: false
+                include_visit_job_action: false
                 title: "Pull Request $TERMINUS_ENV has been deployed"
                 title_link: "https://${TERMINUS_ENV}--${TERMINUS_SITE}.my.pantheonfrontend.website/"
                 #channel: CHANNELID
