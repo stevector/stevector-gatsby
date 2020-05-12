@@ -16,7 +16,7 @@ workflows:
             - pfe/set-terminus-env 
             - slack/notify:
                 title: "Pull Request $TERMINUS_ENV has been deployed"
-                title_link: "https://'${TERMINUS_ENV}'--'${TERMINUS_SITE}'.my.pantheonfrontend.website/"
+                title_link: "https://'$TERMINUS_ENV'--'$TERMINUS_SITE'.my.pantheonfrontend.website/"
                 #channel: CHANNELID
                 #color: '#42e2f4'
                 #mentions: 'USERID1,USERID2,'
