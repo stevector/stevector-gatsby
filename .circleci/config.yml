@@ -18,7 +18,7 @@ workflows:
                 #color: '#42e2f4'
                 #mentions: 'USERID1,USERID2,'
                 message: This is a custom message notification
-                webhook: webhook
+                #webhook: webhook
          post-steps:
             - run:
                 name: post deployment completion status
