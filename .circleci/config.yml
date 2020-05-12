@@ -12,11 +12,26 @@ workflows:
      # GATSBY_DRUPAL_PASSWORD
      # GATSBY_DRUPAL_USER
       - pfe/gatsby-build-and-deploy:
+         pre-steps:
+            - pfe/set-terminus-env 
+
          post-steps:
             - run:
                 name: post deployment completion status
                 command: |
                  curl "https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/statuses/$CIRCLE_SHA1" -H "Authorization: token $GITHUB_TOKEN" -X POST -d '{"state": "success", "context": "pantheon/deployment", "description": "Deployment complete", "target_url": "https://'${TERMINUS_ENV}'--'${TERMINUS_SITE}'.my.pantheonfrontend.website/"}'
+
+            - slack/notify:
+                # image_url: "https://pantheon.io/sites/all/themes/zeus/images/pantheon-OG-backup.png"
+                include_job_number_field: false
+                include_visit_job_action: false
+                title: "Pull Request $TERMINUS_ENV has been deployed"
+                title_link: "https://${TERMINUS_ENV}--${TERMINUS_SITE}.my.pantheonfrontend.website/"
+                #channel: CHANNELID
+                #color: '#42e2f4'
+                #mentions: 'USERID1,USERID2,'
+                message: "Preview your changes on Pantheon"
+
 #      - pfe/make_multidev:
 #          filters:
 #            branches:
@@ -24,4 +39,5 @@ workflows:
 
 orbs:
   pfe: stevector/pantheon-frontend@dev:scaffold
+  slack: circleci/slack@3.4.2
   # pfe: stevector/pantheon-frontend@dev:orb-params
