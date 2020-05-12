@@ -15,6 +15,7 @@ workflows:
          pre-steps:
             - pfe/set-terminus-env 
             - slack/notify:
+                image_url: "https://pantheon.io/sites/all/themes/zeus/images/pantheon-OG-backup.png"
                 include_job_number_field: false
                 include_visit_job_action: false
                 title: "Pull Request $TERMINUS_ENV has been deployed"
@@ -23,7 +24,6 @@ workflows:
                 #color: '#42e2f4'
                 #mentions: 'USERID1,USERID2,'
                 message: "This is a custom message notification $TERMINUS_ENV"
-                #webhook: webhook
          post-steps:
             - run:
                 name: post deployment completion status
