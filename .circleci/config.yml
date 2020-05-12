@@ -13,11 +13,12 @@ workflows:
      # GATSBY_DRUPAL_USER
       - pfe/gatsby-build-and-deploy:
          pre-steps:
+            - pfe/set-terminus-env 
             - slack/notify:
                 #channel: CHANNELID
                 #color: '#42e2f4'
                 #mentions: 'USERID1,USERID2,'
-                message: This is a custom message notification
+                message: "This is a custom message notification $TERMINUS_ENV"
                 #webhook: webhook
          post-steps:
             - run:
