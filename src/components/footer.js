@@ -11,7 +11,7 @@ const Footer = () => (
         margin: `0 auto`,
         maxWidth: 800,
         padding: `1.45rem 1.0875rem`,
-        textAlign: `left`,
+        textAlign: `right`,
       }}
     >
 
