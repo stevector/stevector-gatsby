@@ -12,6 +12,8 @@ workflows:
      # GATSBY_DRUPAL_PASSWORD
      # GATSBY_DRUPAL_USER
       - pfe/gatsby-build-and-deploy:
+         # trying to get the build to break with example.com
+         data-source-url: "example.com"      
          pre-steps:
             - pfe/set-terminus-env 
 
