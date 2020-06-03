@@ -13,7 +13,7 @@ workflows:
      # GATSBY_DRUPAL_USER
       - pfe/gatsby-build-and-deploy:
          # trying to get the build to break with example.com
-         data-source-url: "example.com"      
+         data-source-url: "live-stevector-drupal.pantheonsite.io"      
          pre-steps:
             - pfe/set-terminus-env 
 
