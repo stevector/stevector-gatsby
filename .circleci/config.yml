@@ -12,9 +12,6 @@ workflows:
      # GATSBY_DRUPAL_PASSWORD
      # GATSBY_DRUPAL_USER
       - pfe/gatsby-build-and-deploy:
-         pre-steps:
-            - pfe/set-terminus-env 
-
          post-steps:
             - run:
                 name: post deployment completion status
@@ -32,12 +29,7 @@ workflows:
                 #mentions: 'USERID1,USERID2,'
                 message: "Preview your changes on Pantheon"
 
-#      - pfe/make_multidev:
-#          filters:
-#            branches:
-#              ignore: "master"
-
 orbs:
-  pfe: stevector/pantheon-frontend@dev:scaffold
+  pfe: stevector/pantheon-frontend@dev:master
   slack: circleci/slack@3.4.2
   # pfe: stevector/pantheon-frontend@dev:orb-params
