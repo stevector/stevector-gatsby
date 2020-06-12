@@ -20,8 +20,6 @@ workflows:
             - pfe/set-terminus-env 
 
          post-steps:
-         
-      
             - run:
                 name: 404 and redirects
                 command: |
