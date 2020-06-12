@@ -20,6 +20,16 @@ workflows:
             - pfe/set-terminus-env 
 
          post-steps:
+         
+      
+            - run:
+                name: Sync to GCP Bucket
+                command: |
+                  gsutil cp ./public/404.html gs://<<parameters.gcp-bucket>>/${TERMINUS_SITE}/${TERMINUS_ENV}/
+                  gsutil setmeta -h "Cache-Control:public, s-maxage=10, stale-while-revalidate=600" gs://<<parameters.gcp-bucket>>/${TERMINUS_SITE}/${TERMINUS_ENV}/404.html
+         
+         
+         
             - run:
                 name: post deployment completion status
                 command: |
