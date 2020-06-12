@@ -37,6 +37,6 @@ workflows:
 
 
 orbs:
-  pfe: pantheon-systems/front-end@dev:master
+  pfe: pantheon-systems/front-end@dev:selective-caching
   slack: circleci/slack@3.4.2
   # pfe: stevector/pantheon-frontend@dev:orb-params
