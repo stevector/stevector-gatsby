@@ -32,7 +32,7 @@ workflows:
                   
                   if [[ -f ./public/redirects.json ]] then;
                     gsutil cp ./public/redirects.json gs://static.pantheonfrontend.website/${TERMINUS_SITE}/${TERMINUS_ENV}/
-                    gsutil setmeta -h "Cache-Control:public, s-maxage=10, stale-while-revalidate=600" gs://static.pantheonfrontend.website/${TERMINUS_SITE}/${TERMINUS_ENV}/redirect.json
+                    gsutil setmeta -h "Cache-Control:public, s-maxage=10, stale-while-revalidate=600" gs://static.pantheonfrontend.website/${TERMINUS_SITE}/${TERMINUS_ENV}/redirects.json
                   fi         
          
             - run:
