@@ -1,6 +1,7 @@
 const btoa = require("btoa")
 
 module.exports = {
+  pathPrefix: `/nested-example/site`,
   siteMetadata: {
     title: `Steve Persch's Blog`,
     description: `It's mostly just blog posts about Drupal`,
