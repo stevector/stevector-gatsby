@@ -15,7 +15,7 @@ workflows:
          # trying to get the build to break with example.com
          data-source-url: "live-stevector-drupal.pantheonsite.io"
          resource-class: "small"
-         default-branch: master
+         default-branch: main             
          post-steps:
             - run:
                 name: post deployment completion status
