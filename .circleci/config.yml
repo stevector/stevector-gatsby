@@ -19,20 +19,6 @@ workflows:
          pre-steps:
             - pfe/set-terminus-env 
 
-         post-steps:
-            - run:
-                name: 404 and redirects
-                command: |
-                  if [[ -f ./public/404.html ]]; then
-                    gsutil cp ./public/404.html gs://static.pantheonfrontend.website/${TERMINUS_SITE}/${TERMINUS_ENV}/
-                    gsutil setmeta -h "Cache-Control:public, s-maxage=10, stale-while-revalidate=600" gs://static.pantheonfrontend.website/${TERMINUS_SITE}/${TERMINUS_ENV}/404.html
-                  fi
-                  
-                  if [[ -f ./public/redirects.json ]]; then
-                    gsutil cp ./public/redirects.json gs://static.pantheonfrontend.website/${TERMINUS_SITE}/${TERMINUS_ENV}/
-                    gsutil setmeta -h "Cache-Control:public, s-maxage=10, stale-while-revalidate=600" gs://static.pantheonfrontend.website/${TERMINUS_SITE}/${TERMINUS_ENV}/redirects.json
-                  fi         
-         
             - run:
                 name: post deployment completion status
                 command: |
@@ -50,6 +36,6 @@ workflows:
                 message: "Preview your changes on Pantheon"
 
 orbs:
-  pfe: pantheon-systems/front-end@dev:selective-caching
+  pfe: pantheon-systems/front-end@dev:conditional-redirects-fix
   slack: circleci/slack@3.4.2
   # pfe: stevector/pantheon-frontend@dev:orb-params
