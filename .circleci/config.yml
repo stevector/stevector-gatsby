@@ -12,10 +12,8 @@ workflows:
      # GATSBY_DRUPAL_PASSWORD
      # GATSBY_DRUPAL_USER
       - pfe/gatsby-build-and-deploy:
-         # trying to get the build to break with example.com
          data-source-url: "live-stevector-drupal.pantheonsite.io"
          resource-class: "small"
-         default-branch: main             
          post-steps:
             - run:
                 name: post deployment completion status
@@ -34,6 +32,5 @@ workflows:
                 message: "Preview your changes on Pantheon"
 
 orbs:
-  pfe: pantheon-systems/front-end@dev:main-instead-of-master
+  pfe: pantheon-systems/front-end@0.3.0
   slack: circleci/slack@3.4.2
-  # pfe: stevector/pantheon-frontend@dev:orb-params
