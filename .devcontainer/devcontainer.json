@@ -1,0 +1,13 @@
+{
+	"name": "Gatsby Develop",
+	"dockerFile": "Dockerfile",
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"extensions": [
+		"dbaeumer.vscode-eslint"
+	],
+	"forwardPorts": [8000],
+	"postCreateCommand": "yarn install",
+	"remoteUser": "node"
+}
